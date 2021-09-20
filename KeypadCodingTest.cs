@@ -106,7 +106,7 @@ string FindCode(string message, List<string> keys)
 ////////////////////
 static int FindPossibles(string code, List<string> keys)
 {
-		//declare
+    //declare
     string this_code_substring, digit_repeat_string;
     string[] codes;
     int substring_start_index, key_length;
@@ -114,7 +114,7 @@ static int FindPossibles(string code, List<string> keys)
     int key_offset, key_index, ascii_offset; 
     int[] times = { 0, 1, 2, 4, 5 };
 	
-		// init 
+    // init 
     key_offset = 2;
     string_counts = 1; 
     ascii_offset = 48;
@@ -123,43 +123,43 @@ static int FindPossibles(string code, List<string> keys)
     // debug
     Console.WriteLine("size of code(s) array:" + codes.Length);
 
-		/// loop through each_code in codes[]
+    /// loop through each_code in codes[]
     for (int i = 0; i < codes.Length; i++)
     {
-				string this_code = codes[i];
+	string this_code = codes[i];
         substring_start_index = 0;
         ///////////////////////////////////////////////////////////////////////////////
         foreach (char digit in this_code)
-				{
-						key_index = (digit - ascii_offset) - key_offset; // '2' is first key. minus offset = 0. so '2' is "LAP"
-            key_length = keys[key_index].Length;  // key length using the index
+	{
+		key_index = (digit - ascii_offset) - key_offset; // '2' is first key. minus offset = 0. so '2' is "LAP"
+		key_length = keys[key_index].Length;  // key length using the index
 
-						// loop to find repeating digits, only find max of key_length digits
-            for (int digit_repeat_loop = key_length; digit_repeat_loop > 0; digit_repeat_loop--)
-						{
-								if ((substring_start_index + digit_repeat_loop) > this_code.Length) { continue; }  // dont run off the end of code.. skip this loop
+		// loop to find repeating digits, only find max of key_length digits
+            	for (int digit_repeat_loop = key_length; digit_repeat_loop > 0; digit_repeat_loop--)
+		{
+			if ((substring_start_index + digit_repeat_loop) > this_code.Length) { continue; }  // dont run off the end of code.. skip this loop
 					
-								// reset string back to null 
-								digit_repeat_string = "";
-								// build repeat variable based on digit_repeat_loop for comparision                 
-								while (digit_repeat_string.Length < digit_repeat_loop)
-                {
-                			digit_repeat_string += digit;
-                 }
+			// reset string back to null 
+			digit_repeat_string = "";
+			// build repeat variable based on digit_repeat_loop for comparision                 
+			while (digit_repeat_string.Length < digit_repeat_loop)
+                	{	
+                		digit_repeat_string += digit;
+                 	}
 
-                 // compare substring
-                 this_code_substring = this_code.Substring(substring_start_index, digit_repeat_loop);
-                 if (Equals(this_code_substring, digit_repeat_string))
-                 {
-                            string_counts *= times[digit_repeat_loop];
-                            substring_start_index += digit_repeat_loop;
-                 }
-            }
+                 	// compare substring
+                 	this_code_substring = this_code.Substring(substring_start_index, digit_repeat_loop);
+                 	if (Equals(this_code_substring, digit_repeat_string))
+                 	{
+                        	string_counts *= times[digit_repeat_loop];
+                            	substring_start_index += digit_repeat_loop;
+                 	}
+            	}
 		
-			}
-			/////////////////////////////////////////////////////////////////
+	}
+	/////////////////////////////////////////////////////////////////
    }
-	
-  return string_counts; 
+
+	return string_counts; 
 }
 /////// END OF FindPossibles()
